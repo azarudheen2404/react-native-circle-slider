@@ -125,8 +125,6 @@ const CircleSlider: FC<Props> = ({
       <G
         x={endCoord.x - bR}
         y={endCoord.y - bR}
-        onPressIn={onPressIn}
-        onPressOut={() => onPressOut(angle)}
       >
         <Circle
           r={bR}
@@ -134,6 +132,8 @@ const CircleSlider: FC<Props> = ({
           cy={bR}
           fill={meterColor}
           {...panResponder.panHandlers}
+          onResponderStart={onPressIn}
+          onResponderEnd={() => onPressOut(angle)}
         />
         <Text
           x={bR}

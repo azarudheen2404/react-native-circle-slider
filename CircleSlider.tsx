@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, useCallback } from "react";
+import React, { FC, useState, useRef, useCallback, useEffect } from "react";
 import { PanResponder, Dimensions } from "react-native";
 import Svg, { Path, Circle, G, Text } from "react-native-svg";
 
@@ -42,6 +42,11 @@ const CircleSlider: FC<Props> = ({
   onPressOut = (x) => x,
 }) => {
   const [angle, setAngle] = useState(value);
+  const [temp, setTemp] = useState(0);
+
+  // useEffect(() => {
+  //   console.log(value)
+  // })
 
   const panResponder = useRef(
     PanResponder.create({
@@ -53,13 +58,25 @@ const CircleSlider: FC<Props> = ({
         let xOrigin = xCenter - (dialRadius + btnRadius);
         let yOrigin = yCenter - (dialRadius + btnRadius);
         let a = cartesianToPolar(gs.moveX - xOrigin, gs.moveY - yOrigin);
-
         if (a <= min) {
           setAngle(min);
         } else if (a >= max) {
           setAngle(max);
         } else {
-          setAngle(a);
+          setAngle(a); 
+          if (a<60) {
+            console.log("value<60")
+           setTemp(0) 
+          }else if (a>=60&&a<180) {
+            console.log("value>=60&&value<180")
+            setTemp(120) 
+          }else if (a>=180&&a<300) {
+            console.log("value>=180&&value<300")
+            setTemp(240) 
+          }else if (a>=300&&a<=360) {
+            console.log("value>=300&&value<=360")
+            setTemp(360) 
+          }
         }
       },
     })
@@ -133,7 +150,10 @@ const CircleSlider: FC<Props> = ({
           fill={meterColor}
           {...panResponder.panHandlers}
           onResponderStart={onPressIn}
-          onResponderEnd={() => onPressOut(angle)}
+          onResponderEnd={() => {
+            setAngle(temp)
+            onPressOut(temp) 
+          }}
         />
         <Text
           x={bR}

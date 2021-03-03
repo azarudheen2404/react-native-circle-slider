@@ -17,6 +17,7 @@ interface Props {
   max?: number;
   xCenter?: number;
   yCenter?: number;
+  dialOption?: number
   onValueChange?: (x: number) => number;
   onPressIn?: () => void;
   onPressOut?: (x: number) => number;
@@ -37,16 +38,13 @@ const CircleSlider: FC<Props> = ({
   max = 359,
   xCenter = Dimensions.get("window").width / 2,
   yCenter = Dimensions.get("window").height / 2,
+  dialOption,
   onValueChange = (x) => x,
   onPressIn,
   onPressOut = (x) => x,
 }) => {
   const [angle, setAngle] = useState(value);
   const [temp, setTemp] = useState(0);
-
-  // useEffect(() => {
-  //   console.log(value)
-  // })
 
   const panResponder = useRef(
     PanResponder.create({
@@ -64,18 +62,42 @@ const CircleSlider: FC<Props> = ({
           setAngle(max);
         } else {
           setAngle(a); 
-          if (a<60) {
-            console.log("value<60")
-           setTemp(0) 
-          }else if (a>=60&&a<180) {
-            console.log("value>=60&&value<180")
-            setTemp(120) 
-          }else if (a>=180&&a<300) {
-            console.log("value>=180&&value<300")
-            setTemp(240) 
-          }else if (a>=300&&a<=360) {
-            console.log("value>=300&&value<=360")
-            setTemp(360) 
+          if (dialOption===3) {
+            if (a<60) {
+             setTemp(0) 
+            }else if (a>=60&&a<180) {
+              setTemp(120) 
+            }else if (a>=180&&a<300) {
+              setTemp(240) 
+            }else if (a>=300&&a<=360) {
+              setTemp(359) 
+            }
+          }else if (dialOption===4) {
+            if (a<60) {
+             setTemp(0) 
+            }else if (a>=60&&a<120) {
+              setTemp(90) 
+            }else if (a>=120&&a<230) {
+              setTemp(180) 
+            }else if (a>=230&&a<=300) {
+              setTemp(270) 
+            }else if (a>=300&&a<=360) {
+              setTemp(359) 
+            }
+          }else if (dialOption===5) {
+            if (a<50) {
+             setTemp(0) 
+            }else if (a>=50&&a<100) {
+              setTemp(45) 
+            }else if (a>=100&&a<160) {
+              setTemp(120) 
+            }else if (a>=160&&a<=240) {
+              setTemp(240) 
+            }else if (a>=240&&a<=320) {
+              setTemp(315) 
+            }else if (a>=320&&a<=360) {
+              setTemp(359) 
+            }
           }
         }
       },
@@ -162,7 +184,7 @@ const CircleSlider: FC<Props> = ({
           fill={textColor}
           textAnchor="middle"
         >
-          {onValueChange(angle) + ""}
+          {/* {onValueChange(angle) + ""} */}
         </Text>
       </G>
     </Svg>

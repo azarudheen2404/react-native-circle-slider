@@ -1,5 +1,5 @@
 {
-  "name": "rn-circle-slider",
+  "name": "@azarudheen/rn-circle-slider",
   "version": "1.0.0",
   "description": "RN circle slider",
   "main": "index.ts",
@@ -17,12 +17,16 @@
   },
   "homepage": "https://github.com/azarudheen2404/react-native-circle-slider#readme",
   "dependencies": {
-		"react": "16.13.1",
-		"react-native": "0.63.2",
-		"react-native-svg": "^12.1.0"
-	},
-	"devDependencies": {
-		"@types/react": "^16.9.31",
-		"@types/react-native": "^0.62.1"
-	}
+    "react": "16.13.1",
+    "react-native": "0.63.2",
+    "react-native-svg": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.31",
+    "@types/react-native": "^0.62.1"
+  },
+    "publishConfig": {
+      "access": "public"
+    }
+  
 }

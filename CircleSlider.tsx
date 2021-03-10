@@ -166,7 +166,7 @@ const CircleSlider: FC<Props> = ({
         y={endCoord.y - bR}
       >
         <Circle
-          r={bR}
+          r={bR/6}
           cx={bR}
           cy={bR}
           fill={meterColor}

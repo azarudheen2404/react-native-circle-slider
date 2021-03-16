@@ -1,6 +1,6 @@
 import React, { FC, useState, useRef, useCallback, useEffect } from "react";
 import { PanResponder, Dimensions } from "react-native";
-import Svg, { Path, Circle, G, Text } from "react-native-svg";
+import Svg, { Path, Circle, G, Text, Ellipse } from "react-native-svg";
 
 interface Props {
   btnRadius?: number;
@@ -17,7 +17,7 @@ interface Props {
   max?: number;
   xCenter?: number;
   yCenter?: number;
-  dialOption?: number
+  dialOption?: number;
   onValueChange?: (x: number) => number;
   onPressIn?: () => void;
   onPressOut?: (x: number) => number;
@@ -61,42 +61,42 @@ const CircleSlider: FC<Props> = ({
         } else if (a >= max) {
           setAngle(max);
         } else {
-          setAngle(a); 
-          if (dialOption===3) {
-            if (a<60) {
-             setTemp(0) 
-            }else if (a>=60&&a<180) {
-              setTemp(120) 
-            }else if (a>=180&&a<300) {
-              setTemp(240) 
-            }else if (a>=300&&a<=360) {
-              setTemp(359) 
+          setAngle(a);
+          if (dialOption === 3) {
+            if (a < 60) {
+              setTemp(0);
+            } else if (a >= 60 && a < 180) {
+              setTemp(120);
+            } else if (a >= 180 && a < 300) {
+              setTemp(240);
+            } else if (a >= 300 && a <= 360) {
+              setTemp(359);
             }
-          }else if (dialOption===4) {
-            if (a<60) {
-             setTemp(0) 
-            }else if (a>=60&&a<120) {
-              setTemp(90) 
-            }else if (a>=120&&a<230) {
-              setTemp(180) 
-            }else if (a>=230&&a<=300) {
-              setTemp(270) 
-            }else if (a>=300&&a<=360) {
-              setTemp(359) 
+          } else if (dialOption === 4) {
+            if (a < 60) {
+              setTemp(0);
+            } else if (a >= 60 && a < 120) {
+              setTemp(90);
+            } else if (a >= 120 && a < 230) {
+              setTemp(180);
+            } else if (a >= 230 && a <= 300) {
+              setTemp(270);
+            } else if (a >= 300 && a <= 360) {
+              setTemp(359);
             }
-          }else if (dialOption===5) {
-            if (a<50) {
-             setTemp(0) 
-            }else if (a>=50&&a<100) {
-              setTemp(45) 
-            }else if (a>=100&&a<160) {
-              setTemp(120) 
-            }else if (a>=160&&a<=240) {
-              setTemp(240) 
-            }else if (a>=240&&a<=320) {
-              setTemp(315) 
-            }else if (a>=320&&a<=360) {
-              setTemp(359) 
+          } else if (dialOption === 5) {
+            if (a < 50) {
+              setTemp(0);
+            } else if (a >= 50 && a < 100) {
+              setTemp(45);
+            } else if (a >= 100 && a < 160) {
+              setTemp(120);
+            } else if (a >= 160 && a <= 240) {
+              setTemp(240);
+            } else if (a >= 240 && a <= 320) {
+              setTemp(315);
+            } else if (a >= 320 && a <= 360) {
+              setTemp(359);
             }
           }
         }
@@ -161,30 +161,35 @@ const CircleSlider: FC<Props> = ({
         } 1 ${endCoord.x} ${endCoord.y}`}
       />
 
-      <G
-        x={endCoord.x - bR}
-        y={endCoord.y - bR}
-      >
+      <G x={endCoord.x - bR} y={endCoord.y - bR}>
         <Circle
-          r={bR/6}
+          r={bR}
           cx={bR}
           cy={bR}
-          fill={meterColor}
+          // fill={meterColor}
           {...panResponder.panHandlers}
           onResponderStart={onPressIn}
           onResponderEnd={() => {
-            setAngle(temp)
-            onPressOut(temp) 
+            setAngle(temp);
+            onPressOut(temp);
           }}
+        />
+        <Ellipse
+          cx={bR}
+          cy={bR}
+          rx="2"
+          ry={dialWidth / 2}
+          fill={angle === 0 ? meterColor : "none"}
+          {...panResponder.panHandlers}
         />
         <Text
           x={bR}
           y={bR + textSize / 2}
-          fontSize={textSize}
-          fill={textColor}
+          // fontSize={textSize}
+          // fill={textColor}
           textAnchor="middle"
         >
-          {/* {onValueChange(angle) + ""} */}
+          {onValueChange(angle) + ""}
         </Text>
       </G>
     </Svg>

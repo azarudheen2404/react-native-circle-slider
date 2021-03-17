@@ -46,6 +46,11 @@ const CircleSlider: FC<Props> = ({
   const [angle, setAngle] = useState(value);
   const [temp, setTemp] = useState(0);
 
+  useEffect(() => {
+    setAngle(value);
+    onValueChange(value);
+  }, [value]);
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: (e, gs) => true,

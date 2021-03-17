@@ -168,10 +168,10 @@ const CircleSlider: FC<Props> = ({
 
       <G x={endCoord.x - bR} y={endCoord.y - bR}>
         <Circle
-          r={bR}
+          r={bR/6}
           cx={bR}
           cy={bR}
-          // fill={meterColor}
+          fill={meterColor}
           {...panResponder.panHandlers}
           onResponderStart={onPressIn}
           onResponderEnd={() => {
@@ -179,14 +179,14 @@ const CircleSlider: FC<Props> = ({
             onPressOut(temp);
           }}
         />
-        <Ellipse
+        {/* <Ellipse
           cx={bR}
           cy={bR}
           rx="2"
           ry={dialWidth / 2}
           fill={angle === 0 ? meterColor : "none"}
           {...panResponder.panHandlers}
-        />
+        /> */}
         <Text
           x={bR}
           y={bR + textSize / 2}
